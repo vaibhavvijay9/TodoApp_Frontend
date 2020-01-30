@@ -1,0 +1,42 @@
+<div class="container main-content">
+    <section class="py-5 register">
+        <div class="row justify-content-center">
+            <div class="col-md-4 shadow-sm p-4 bg-white rounded">
+                <div *ngIf="message != null" class="alert" [ngClass]="{'alert-success':isSuccess,'alert-danger':!isSuccess}">
+                    {{message}}
+                </div>
+
+                <h4 class="text-center">Register</h4>
+                <form [formGroup]="registrationForm" (submit)="registrationFormSubmit()">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input formControlName="name" type="text" class="form-control" [class.is-invalid]="isRegistrationFormSubmitted && name.errors">
+                        <div *ngIf="isRegistrationFormSubmitted && name.errors" class="invalid-feedback">
+                            <p *ngIf=" name.errors?.required">Name is required</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input formControlName="username" type="email" class="form-control" [class.is-invalid]="isRegistrationFormSubmitted && username.errors">
+                        <div *ngIf="isRegistrationFormSubmitted && username.errors" class="invalid-feedback">
+                            <p *ngIf=" username.errors?.required">Username is required</p>
+                        </div>
+                        <div *ngIf="isRegistrationFormSubmitted && isAlreadyExists" class="error-feedback">
+                            <p>Username already exists.</p>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input formControlName="password" type="password" class="form-control" [class.is-invalid]="isRegistrationFormSubmitted && password.errors">
+                        <div *ngIf="isRegistrationFormSubmitted && password.errors" class="invalid-feedback">
+                            <p *ngIf=" password.errors?.required">Password is required</p>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <p class="mt-2 mb-0 small-text">Already have an account, Please <a routerLink='/login'>log in</a></p>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
