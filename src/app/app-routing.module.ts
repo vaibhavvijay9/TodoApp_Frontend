@@ -27,7 +27,7 @@ const routes: Routes = [
     component: DashboardComponent,
   },
   {
-    path: 'dashboard/:todo_list_id',
+    path: 'dashboard/:category_id',
     component: TodoListComponent,
   },
   {

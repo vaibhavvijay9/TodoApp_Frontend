@@ -1,1 +1,58 @@
-<p>dashboard works!</p>
+<div class="container main-content">
+    <section class="my-5 p-4 bg-white rounded shadow dashboard">
+        <div class="d-flex align-items-center">
+            <div class="user-initial">V</div>
+            <div class="d-flex flex-column ml-5">
+                <label>To-do lists</label>
+                <label class="small-text">{{date | date:'EEEE, MMMM d, y'}}</label>
+            </div>
+        </div>
+
+
+        <div class="tasks-grid mt-4">
+            <div *ngFor="let list of getApiResponse" class="tasks-grid__item p-3 bg-info" (click)="goToList(list.categoryId)">
+                <div class="task">
+                    <p class="mb-0 task__title">{{list.categoryName | titlecase}}</p>
+                    <p class="task__count">{{list.taskCount}} task{{(list.taskCount > 1)?'s':''}}</p>
+                </div>
+            </div>
+
+            <div class="tasks-grid__item p-3 bg-info d-flex justify-content-center align-items-center">
+                <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#createNewList">Create</button>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="createNewList" tabindex="-1" role="dialog" aria-labelledby="createNewList" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="todoNameForm" (submit)="todoNameFormSubmit()">
+                    <div class="form-group">
+                        <label class="col-form-label text-bold" for="todoName">todo Name</label>
+                        <input formControlName="todo_name" class="form-control input-text" type="text" [class.is-invalid]="todoNameFormSubmitted && (todoName.errors || nameAlreadyExists)" />
+                        <div *ngIf="todoNameFormSubmitted" class="error-feedback">
+                            <div *ngIf="todoName.errors && todoName.errors.required">Name is required</div>
+                            <div *ngIf="nameAlreadyExists">Todo Name already exists</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-sm btn-primary float-right">Create</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

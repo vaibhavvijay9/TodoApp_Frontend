@@ -1,1 +1,67 @@
-<p>todo-list works!</p>
+<div class="container main-content">
+    <section class="my-5 p-4 bg-white rounded shadow dashboard">
+        <div class="d-flex flex-column ml-5">
+            <label>To-do list name</label>
+            <label class="small-text">Items - {{todoItemsList?.length}}</label>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div *ngFor="let item of todoItemsList;let i=index;" class="d-flex justify-content-between p-3 shadow-sm rounded my-3">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" [id]="i" [checked]="item.completed" (change)="updateTaskStatus(item)">
+                        <label class="custom-control-label" [for]="i">{{item.taskDescription}}</label>
+                    </div>
+                    <div>
+                        Edit
+                        <button (click)="deleteTask(item.taskId)">Del</button>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addNewTask">Add New Task</button>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+
+<!-- Modal -->
+<!-- <div class="modal fade" id="addNewTask" tabindex="-1" role="dialog" aria-labelledby="addNewTask" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="todoNameForm" (submit)="todoNameFormSubmit()">
+                    <div class="form-group">
+                        <label class="col-form-label text-bold">Title</label>
+                        <input formControlName="todo_name" class="form-control input-text" type="text" [class.is-invalid]="todoNameFormSubmitted && (todoName.errors || nameAlreadyExists)" />
+                        <div *ngIf="todoNameFormSubmitted && todoName.errors" class="error-feedback">
+                            <div *ngIf="todoName.errors.required">Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label text-bold" for="todoName">Date</label>
+                        <input formControlName="todo_name" class="form-control input-text" type="date" [class.is-invalid]="todoNameFormSubmitted && (todoName.errors || nameAlreadyExists)" />
+                        <div *ngIf="todoNameFormSubmitted" class="error-feedback">
+                            <div *ngIf="todoName.errors && todoName.errors.required">Name is required</div>
+                            <div *ngIf="nameAlreadyExists">Todo Name already exists</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-sm btn-primary float-right">Create</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> -->

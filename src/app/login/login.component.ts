@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { AppServiceService } from '../services/app-service.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,7 +12,10 @@ export class LoginComponent implements OnInit {
   loginForm : FormGroup;
   isLoginFormSubmitted = false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  isSuccess;
+  message = null;
+
+  constructor(private formBuilder: FormBuilder, private myService: AppServiceService, private router: Router) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -31,7 +35,22 @@ export class LoginComponent implements OnInit {
     if(this.loginForm.invalid){
       return;
     }
-    console.log(this.loginForm.value);
+
+    this.myService.login(this.loginForm.value).subscribe(response => {
+      if(response["message"] === 'failure'){
+        this.isSuccess = false;
+        this.message = 'Wrong username or password.';
+      }
+      else if(response["message"] === 'success'){
+        this.isSuccess = true;
+        this.message = null;
+        this.router.navigate(['/dashboard']);
+      }
+    },
+      error => {
+        // console.log('error in login - ', error);
+      })
+
   }
 
 }
