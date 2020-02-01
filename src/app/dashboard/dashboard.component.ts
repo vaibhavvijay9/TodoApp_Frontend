@@ -10,7 +10,7 @@ declare var $: any;
 })
 export class DashboardComponent implements OnInit {
 
-  name;
+  name: string;
   date;
 
   getApiResponse;
@@ -29,8 +29,10 @@ export class DashboardComponent implements OnInit {
 
 
     // Decode the String
-    const decodedString = atob(localStorage.getItem('token'));
+    if(localStorage.getItem('token')){
+      const decodedString = atob(localStorage.getItem('token'));
     this.name = (decodedString.split('-'))[0];
+    }
 
     this.getDashboardData();
 
