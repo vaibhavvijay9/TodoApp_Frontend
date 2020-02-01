@@ -40,3 +40,17 @@ body {
     color: #50bb11;
     text-align: left;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.custom-border {
+    border: 1px solid #e9e9e9;
+}
+
+.action-icon {
+    width: 20px !important;
+    height: 20px !important;
+    cursor: pointer;
+}

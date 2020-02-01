@@ -1,13 +1,23 @@
-.dashboard {}
+.dashboard {
+    min-height: 75vh;
+    &__title {
+        color: #1594A8;
+        font-size: 20px;
+        font-weight: 600;
+    }
+}
 
 .user-initial {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background-color: #007fb6;
+    background-color: #1594A8;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
 }
 
 .tasks-grid {
@@ -17,6 +27,7 @@
     &__item {
         height: 100px;
         border-radius: 4px;
+        background-color: #56BBCB;
         &:hover {
             box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
         }
@@ -24,8 +35,16 @@
 }
 
 .task {
-    &__title {}
+    &__title {
+        color: #fff;
+        font-weight: 600;
+    }
     &__count {
         font-size: 12px;
+        color: #fff;
     }
+}
+
+.action-icon {
+    color: #5d5e5f;
 }

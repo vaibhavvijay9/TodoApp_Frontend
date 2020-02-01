@@ -1,25 +1,27 @@
 <div class="container main-content">
-    <section class="my-5 p-4 bg-white rounded shadow dashboard">
+    <section class="my-5 p-4 bg-white rounded shadow todo-list">
+        <a routerLink='/dashboard' class="small-text">&lt; Go Back</a>
         <div class="d-flex flex-column ml-5">
-            <label>To-do list name</label>
+            <label class="category-name mb-0">{{category | titlecase}}</label>
             <label class="small-text">Items - {{todoItemsList?.length}}</label>
         </div>
 
         <div class="row justify-content-center">
             <div class="col-md-5">
-                <div *ngFor="let item of todoItemsList;let i=index;" class="d-flex justify-content-between p-3 shadow-sm rounded my-3">
+                <div *ngFor="let item of todoItemsList;let i=index;" class="d-flex justify-content-between align-items-center p-3 shadow-sm rounded my-3 todo-item">
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" [id]="i" [checked]="item.completed" (change)="updateTaskStatus(item)">
-                        <label class="custom-control-label" [for]="i">{{item.taskDescription}}</label>
+                        <label class="custom-control-label d-block" [for]="i">{{item.taskDescription}}</label>
+                        <label class="task-date mb-0">{{item.taskDate | date}}</label>
                     </div>
                     <div>
-                        Edit
-                        <button (click)="deleteTask(item.taskId)">Del</button>
+                        <i-feather name="edit-2" (click)="setAction('edit', item)" class="mr-2 action-icon"></i-feather>
+                        <i-feather name="trash-2" (click)="deleteTask(item.taskId)" class="action-icon"></i-feather>
                     </div>
                 </div>
 
                 <div class="text-center">
-                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addNewTask">Add New Task</button>
+                    <button type="button" class="btn btn-outline-primary" (click)="setAction('add')">Add New Task</button>
                 </div>
             </div>
         </div>
@@ -29,39 +31,38 @@
 
 
 <!-- Modal -->
-<!-- <div class="modal fade" id="addNewTask" tabindex="-1" role="dialog" aria-labelledby="addNewTask" aria-hidden="true">
+<div class="modal fade" id="addNewTask" tabindex="-1" role="dialog" aria-labelledby="addNewTask" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header border-bottom-0 pb-0">
                 <h5 class="modal-title">Task</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="todoNameForm" (submit)="todoNameFormSubmit()">
+                <form [formGroup]="addItemForm" (submit)="addItemFormSubmit()">
                     <div class="form-group">
-                        <label class="col-form-label text-bold">Title</label>
-                        <input formControlName="todo_name" class="form-control input-text" type="text" [class.is-invalid]="todoNameFormSubmitted && (todoName.errors || nameAlreadyExists)" />
-                        <div *ngIf="todoNameFormSubmitted && todoName.errors" class="error-feedback">
-                            <div *ngIf="todoName.errors.required">Name is required</div>
+                        <label class="col-form-label text-bold">Task Description</label>
+                        <input formControlName="taskDescription" class="form-control input-text" type="text" [class.is-invalid]="isAddItemFormSubmitted && taskDescription.errors" />
+                        <div *ngIf="isAddItemFormSubmitted && taskDescription.errors" class="error-feedback">
+                            <div *ngIf="taskDescription.errors.required">Description is required</div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label text-bold" for="todoName">Date</label>
-                        <input formControlName="todo_name" class="form-control input-text" type="date" [class.is-invalid]="todoNameFormSubmitted && (todoName.errors || nameAlreadyExists)" />
-                        <div *ngIf="todoNameFormSubmitted" class="error-feedback">
-                            <div *ngIf="todoName.errors && todoName.errors.required">Name is required</div>
-                            <div *ngIf="nameAlreadyExists">Todo Name already exists</div>
+                        <label class="col-form-label text-bold">Task Date</label>
+                        <input formControlName="taskDate" class="form-control input-text" type="date" [class.is-invalid]="isAddItemFormSubmitted && taskDate.errors" />
+                        <div *ngIf="isAddItemFormSubmitted && taskDate.errors" class="error-feedback">
+                            <div *ngIf="taskDate.errors.required">Date is required</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-sm btn-primary float-right">Create</button>
+                            <button type="submit" class="btn btn-primary float-right">{{(actionType === 'edit')?'Update':'Create'}}</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</div> -->
+</div>

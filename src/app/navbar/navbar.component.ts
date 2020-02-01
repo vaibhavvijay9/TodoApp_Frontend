@@ -15,6 +15,12 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {}
 
   logOut(){
+    const postData = {
+      token : localStorage.getItem('token')
+    }
+    this.myService.logOut(postData).subscribe(response => {
+      console.log(response); 
+    });
     localStorage.clear();
     this.myService.setLoggedInFlagForNav(false);
     this.router.navigate(['/login']);
