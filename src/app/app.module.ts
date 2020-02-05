@@ -17,6 +17,8 @@ import { MyInterceptor } from './auth.interceptor';
 
 import { IconsModule } from './icons/icons.module';
 
+import { APP_BASE_HREF } from '@angular/common';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +39,7 @@ import { IconsModule } from './icons/icons.module';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: MyInterceptor, multi: true },
+    { provide: APP_BASE_HREF, useValue: '/demo' }
   ],
   bootstrap: [AppComponent]
 })
