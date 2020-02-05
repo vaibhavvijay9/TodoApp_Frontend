@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppServiceService } from './services/app-service.service';
 import { Router, NavigationEnd } from '@angular/router'; // import Router and NavigationEnd
-
+// declare ga as a function to set and sent the events
+declare let gtag: Function;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
